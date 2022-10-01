@@ -54,7 +54,7 @@ class HomeController extends Controller
         }
     }
 
-    // product details 
+    // product details page
 
     public function product_details($id){
 
@@ -266,5 +266,12 @@ class HomeController extends Controller
         
     }
 
+    // search products by categories
+    public function search_products_by_category(Request $request){
+        $data = $request->search;
+        $productList = product::where('category', 'LIKE', "%$data%")->paginate(9);
+
+        return view('userHome.userIndex', compact('productList'));
+    }
     
 }

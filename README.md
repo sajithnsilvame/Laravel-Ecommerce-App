@@ -64,20 +64,22 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-## New things I learned in this project
+## New things I learned in this project ##
 
-I learned how to store a image to public folder that we upload.
+# I learned how to store a image to public folder that we upload.
 
         $image = $request->image;
         $image_name = time(). '.'.$image->getClientOriginalExtension();
         $request->image->move('product_img',$image_name);
         $productData->image = $image_name;
 
-I learned how to add a new column to the table in database
+# I learned how to add a new column to the table in database
         => php artisan make:migration add product_qty field to product table
         => php artisan migrate 
 
-I learned how to render the data to the UI dynamically using foreach() loop
+# I learned how to render the data to the UI dynamically using foreach() loop
 
-I learned how to intigrate a STRIPE payment gateway
+# I learned how to intigrate a STRIPE payment gateway
+
+# I learned how to filter the products by using keywords and use to forelse()   loop 
 
