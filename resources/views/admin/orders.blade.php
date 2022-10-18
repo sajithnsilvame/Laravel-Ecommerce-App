@@ -67,6 +67,15 @@
             background-color: #0ee848;
             outline-color: #0ee848;
         }
+
+        .search_bar {
+            color: black;
+            width: 40em;
+        }
+
+        .no_products {
+            margin-left: 31em;
+        }
     </style>
 </head>
 
@@ -85,13 +94,24 @@
 
                     <div class="div_center">
                         <h2 class="h2_font">All Orders</h2>
+
+                        <form action="{{url('search-orders')}}" method="GET">
+                            @csrf
+                            <div>
+                                <input type="text" placeholder="Enter Order Id" class="mt-6 search_bar" name="search">
+                                <input type="submit" value="Search" class="btn btn-primary p-2">
+                            </div>
+
+                        </form>
                     </div>
+
 
 
                     <div class="mt-6 scrollmenu">
                         <table class="table">
 
                             <tr class="font-color">
+                                <th>Order Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -103,12 +123,11 @@
                                 <th>Payment Status</th>
                                 <th>Deliver Status</th>
                                 <th>Action</th>
-
-
-
+                                <th>Invoice</th>
                             </tr>
                             @foreach($order as $order)
                             <tr class="font-color">
+                                <td>{{$order->id}}</td>
                                 <td>{{$order->name}}</td>
                                 <td>{{$order->email}}</td>
                                 <td>{{$order->phone}}</td>
@@ -119,11 +138,14 @@
                                 <td>Rs {{$order->price}}</td>
                                 <td>{{$order->payment_status}}</td>
                                 <td>{{$order->delivery_status}}</td>
+
                                 @if($order->delivery_status == 'processing')
                                 <td><a href="{{url('mark-as-delivered', $order->id)}}" class="btn btn-primary" onclick="return confirm('Are you sure to change the delivery status?')">Mark as Delivered</a></td>
                                 @else
                                 <td><a href="" class="btn btn-success" onclick="false">Delivered<i class="mdi mdi-marker-check"></i></a></td>
                                 @endif
+
+                                <td><a href="{{url('print-pdf', $order->id)}}" class="btn btn-warning" style="background-color: #374adb;" onmouseover="this.style.backgroundColor = '#3776db'" ; onmouseout="this.style.backgroundColor = '#374adb'" ;>Download</a></td>
                             </tr>
                             @endforeach
                         </table>

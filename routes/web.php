@@ -29,16 +29,15 @@ Route::get('/super-admin-dashboard', [HomeController::class, 'super_admin_dashbo
 // admin dashboard
 Route::get('/admin-dashboard', [HomeController::class, 'admin_dashboard']);
 
-
-// -- Admin --> category 
+// Admin ================> ================> ================>
+        // -- Admin --> category 
 Route::get('/view-category', [AdminController::class, 'view_category']);
 
 Route::post('/add-category', [AdminController::class, 'add_category']);
 
 Route::get('/delete-category/{id}', [AdminController::class, 'delete_category']);
 
-// -- Admin --> Products 
-
+        // -- Admin --> Products 
 Route::get('/show-products', [AdminController::class, 'show_products']);
 
         // add product page
@@ -58,8 +57,14 @@ Route::get('/orders', [AdminController::class, 'orders']);
 
 Route::get('/mark-as-delivered/{id}', [AdminController::class, 'mark_as_delivered']);
 
+        // print invoices
+Route::get('/print-pdf/{id}', [AdminController::class, 'print_PDF']);        
 
-// #super admin =================>
+        // search orders
+Route::get('/search-orders', [AdminController::class, 'search_orders']);        
+
+
+// #super admin =================> ================> ================>
 
 Route::get('/create-admin', [SuperAdminController::class, 'create_admin']);
 
@@ -71,40 +76,36 @@ Route::get('/remove-admin/{id}', [SuperAdminController::class, 'remove_admin']);
 
 Route::get('/show-all-users', [SuperAdminController::class, 'show_all_users']);
 
-// User interface activities ================>
+// User interface activities ================> ================> ================>
 
-// product details
+        // product details ===> ===> ===> ===> ===> ===>
 Route::get('/product-details/{id}', [HomeController::class, 'product_details']);
 
+        // Add to cart ===> ===> ===> ===> ===> ===>
 Route::post('/add-cart/{id}', [HomeController::class, 'add_cart']);
 
-// show products in cart
-
+        // show products in cart ===> ===> ===> ===> ===> ===>
 Route::get('/products-in-cart', [HomeController::class, 'show_products_in_cart']);
 
-// remove product from cart
-
+        // remove product from cart ===> ===> ===> ===> ===> ===>
 Route::get('/remove-product-from-cart/{id}', 
 [HomeController::class, 'remove_product_from_cart']);
 
-//cash on deliver
-
+        //cash on deliver ===> ===> ===> ===> ===> ===>
 Route::get('/cash-on-delivery', [HomeController::class, 'cash_on_delivery']);
 
 Route::post('/confirm-order', [HomeController::class, 'confirm_order']);
 
-//card payment
-
+        //card payment ===> ===> ===> ===> ===> ===>
 Route::get('/card-payment/{total_price}', [HomeController::class, 'card_payment']);
 
 Route::post('stripe/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
 
-// User's order (my orders) ===> ===> ===> ===> ===> ===>
-
+        // User's order (my orders) ===> ===> ===> ===> ===> ===>
 Route::get('/my-orders', [HomeController::class, 'my_orders']);
 
-        // cancel orders
+        // cancel orders ===> ===> ===> ===> ===> ===>
 Route::get('/cancel-order/{id}', [HomeController::class, 'cancel_order']); 
 
-        // search products
+        // search products ===> ===> ===> ===> ===> ===>
 Route::get('/search-products', [HomeController::class, 'search_products_by_category']);     

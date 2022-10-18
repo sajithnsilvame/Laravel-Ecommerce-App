@@ -19,43 +19,57 @@ use Stripe;
 
 class HomeController extends Controller
 {
-
+    // '/'
     public function index(){
         
         $productList = Product::paginate(9);
         return view('userHome.userIndex', compact('productList'));
     }
-
+    // admin dashboard
     public function admin_dashboard(){
+        if(Auth::id()){
             return view('admin.adminIndex');
-    }
-
-    public function super_admin_dashboard()
-    {
-        return view('superadmin.superAdminIndex');
-    }
-
-    public function redirect(){
-
-        $usertype = Auth::User()->usertype;
-
-        if($usertype == '2'){
-
-            return view('superadmin.superadminIndex');
         }
-        elseif ($usertype == '1') {
+        else{
+            return redirect('login');
+        }
             
-            return view('admin.adminIndex');
+    }
+    // super admin dashboard
+    public function super_admin_dashboard()
+    {   
+        if(Auth::id()){
+            return view('superadmin.superAdminIndex');
         }
-        else {
+        else{
+            return redirect('login');
+        }
+        
+    }
+    // redirect user
+    public function redirect(){
+        if(Auth::id()){
 
-            $productList = Product::paginate(9);
-            return view('userHome.userIndex', compact('productList'));
+            $usertype = Auth::User()->usertype;
+
+            if ($usertype == '2') {
+
+                return view('superadmin.superadminIndex');
+            } elseif ($usertype == '1') {
+
+                return view('admin.adminIndex');
+            } else {
+
+                $productList = Product::paginate(9);
+                return view('userHome.userIndex', compact('productList'));
+            }
+        }else{
+            return redirect('login');
         }
+        
     }
 
     // product details page
-
     public function product_details($id){
 
         $product = Product::find($id);
@@ -269,7 +283,8 @@ class HomeController extends Controller
     // search products by categories
     public function search_products_by_category(Request $request){
         $data = $request->search;
-        $productList = product::where('category', 'LIKE', "%$data%")->paginate(9);
+        $productList = product::where('category', 'LIKE', "%$data%")->
+        orwhere('description', 'LIKE', "%$data%")->paginate(9);
 
         return view('userHome.userIndex', compact('productList'));
     }

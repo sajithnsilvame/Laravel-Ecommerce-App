@@ -52,9 +52,12 @@ class SuperAdminController extends Controller
 
         $admin = User::find($id);
 
-        $admin->delete();
+       $admin->delete();
 
-        return redirect()->back()->with('message', 'Admin was deleted successfuly');
+       return redirect()->back()->with('message', 'Admin was deleted successfuly');
+       
+
+        
     }
 
     public function show_all_users(){

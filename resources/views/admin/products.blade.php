@@ -78,6 +78,8 @@
             color: #fff;
             font-weight: 500;
         }
+
+        
     </style>
 </head>
 
@@ -126,6 +128,7 @@
 
                     <div class="div_center">
                         <h2 class="h2_font">Products List</h2>
+                        
                     </div>
 
                     <div class="mt-6">
@@ -144,20 +147,20 @@
                                 <th>Edit</th>
 
                             </tr>
-                            @foreach($productList as $productList)
+                            @foreach($listItem as $listItem)
                             <tr class="font-color">
-                                <td>{{$productList->id}}</td>
-                                <td>{{$productList->title}}</td>
-                                <td>{{$productList->description}}</td>
-                                <td>{{$productList->category}}</td>
-                                <td>{{$productList->quantity}}</td>
-                                <td>{{$productList->price}}</td>
-                                <td>{{$productList->discount_price}}</td>
+                                <td>{{$listItem->id}}</td>
+                                <td>{{$listItem->title}}</td>
+                                <td>{{$listItem->description}}</td>
+                                <td>{{$listItem->category}}</td>
+                                <td>{{$listItem->quantity}}</td>
+                                <td>{{$listItem->price}}</td>
+                                <td>{{$listItem->discount_price}}</td>
                                 <td>
-                                    <a href="/product_img/{{$productList->image}}"> <img class="img_size" src="/product_img/{{$productList->image}}"> </a>
+                                    <a href="/product_img/{{$listItem->image}}"> <img class="img_size" src="/product_img/{{$listItem->image}}"> </a>
                                 </td>
-                                <td><a onclick=" return confirm('Are you sure that delete this product?')" href="{{url('delete-product', $productList->id)}}" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></a></td>
-                                <td><a href="{{url('edit-product', $productList->id)}}" class="btn btn-success"><i class="mdi mdi-square-edit-outline"></i></a></td>
+                                <td><a onclick=" return confirm('Are you sure that delete this product?')" href="{{url('delete-product', $listItem->id)}}" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></a></td>
+                                <td><a href="{{url('edit-product', $listItem->id)}}" class="btn btn-success"><i class="mdi mdi-square-edit-outline"></i></a></td>
                             </tr>
                             @endforeach
                         </table>
@@ -167,13 +170,7 @@
         </div>
     </div>
     <!-- container-scroller -->
-    <script>
-        let ok_btn = document.getelementById('ok');
 
-        function deletefun() {
-            ok_btn.confirm(true);
-        }
-    </script>
     <!-- plugins:js -->
     <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->

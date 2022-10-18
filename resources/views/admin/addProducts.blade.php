@@ -87,7 +87,7 @@
 
                                 <div class="mt-2">
                                     <label>Product Price</label>
-                                    <input class="input_color ml-2" type="number" name="price" value="0" required="">
+                                    <input class="input_color ml-2" type="number" name="price"  required="">
                                 </div>
 
                                 <div class="mt-2">
@@ -97,7 +97,7 @@
 
                                 <div class="mt-2">
                                     <label>Product Quantity</label>
-                                    <input class="input_color ml-2" type="number" min="0" name="quantity" value="0" required="">
+                                    <input class="input_color ml-2" type="number" min="1" name="quantity"  required="">
                                 </div>
 
                                 <div class="mt-2">
