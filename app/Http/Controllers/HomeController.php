@@ -14,8 +14,12 @@ use App\Models\Cart;
 
 use App\Models\Order;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 use Session;
+
 use Stripe;
+
 
 class HomeController extends Controller
 {
@@ -196,7 +200,8 @@ class HomeController extends Controller
 
             
         }
-        return redirect()->back()->with('message', 'We have Received Your Order. We will connect with you soon');
+        Alert::class::success('We have Received Your Order. We will connect with you soon');
+        return redirect()->back();
     }
 
     // card payment
@@ -254,8 +259,10 @@ class HomeController extends Controller
 
             $cart->delete();
         }
+        Alert::class::success('Payment is Successful', 
+        'Thank you for purchasing your item will be delivered as soon as possible!');
 
-        return back()->with('success', 'Payment successful!');
+        return back();
     }
 
     public function my_orders(){

@@ -22,7 +22,10 @@
     <link href="userhome/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="userhome/css/responsive.css" rel="stylesheet" />
-    
+
+    <!-- sweet alert cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
     <style>
@@ -76,7 +79,9 @@
                     <td class="td_des">{{$cart->quantity}}</td>
                     <td class="td_des">Rs {{$cart->price}}</td>
                     <td class="td_des"><img width="100" src="/product_img/{{$cart->image}}" alt=""></td>
-                    <td class="td_des "><a href="{{url('remove-product-from-cart', $cart->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to remove this product?')"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></td>
+                    <td class="td_des ">
+                        <a href="{{url('remove-product-from-cart', $cart->id)}}" class="btn btn-danger" onclick="confirmation(event)"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a>
+                    </td>
 
 
                 </tr>
@@ -119,6 +124,31 @@
 
         </p>
     </div>
+    <!-- Sweet Alert confirmation -->
+    <script>
+        function confirmation(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href');
+            console.log(urlToRedirect);
+
+            swal({
+                    title: "Remove Item from the Cart",
+                    text: "Are you sure that remove this item from your cart?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+
+                })
+                .then((willCancel) => {
+                    if (willCancel) {
+                        window.location.href = urlToRedirect;
+                    }
+                });
+
+        }
+    </script>
+
+
     <!-- jQery -->
     <script src="userhome/js/jquery-3.4.1.min.js"></script>
     <!-- popper js -->

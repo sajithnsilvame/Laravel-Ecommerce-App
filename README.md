@@ -87,3 +87,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
        to install => composer require barryvdh/laravel-dompdf
        then open the config-> app.php set the providers and aliases
 
+I learned how to verify the email 
+

@@ -62,16 +62,10 @@
     <div class="top_space" style="font-family: 'Poppins', sans-serif;">
         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 center">
 
-            @if(session()->has('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{session()->get('message')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+            @include('sweetalert::alert')
+            
             <h5 class="mb-10 ml-4" style="font-size: 32px; font-family: 'Poppins', sans-serif;">
-            Fill your Shipping Details Here</h5>
+                Fill your Shipping Details Here</h5>
             <form class="mx-1 mx-md-4" action="{{url('confirm-order')}}" method="post">
 
                 @csrf
@@ -90,7 +84,7 @@
                     <div class="form-outline flex-fill mb-0">
                         <label class="form-label">Your Name</label>
                         <input type="text" id="name" name="name" required value="{{$user->name}}" />
-                        
+
                     </div>
                 </div>
 

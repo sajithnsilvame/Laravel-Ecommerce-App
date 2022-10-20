@@ -49,12 +49,7 @@
     <div class="container">
 
 
-        @if (Session::has('success'))
-        <div class="alert alert-success text-center">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <p>{{ Session::get('success') }}</p>
-        </div>
-        @endif
+        @include('sweetalert::alert')
 
         <form role="form" action="{{route('stripe.post', $total_price)}}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
 

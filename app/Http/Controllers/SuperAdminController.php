@@ -8,6 +8,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
 
+
 class SuperAdminController extends Controller
 {
     public function create_admin(){
@@ -37,7 +38,7 @@ class SuperAdminController extends Controller
         if ($reg_status) {
             return redirect()->back()->with('success', 'Admin registration is successful');
         } else {
-            return redirect()->back()->with('fail', 'somthing went wrong!');
+            return redirect()->back()->with('fail', 'somthing went wrong! please try again');
         }  
     }
 
