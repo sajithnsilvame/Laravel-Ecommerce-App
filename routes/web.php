@@ -21,7 +21,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified'])
 });
 
 // redirect user
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect'])
+->middleware('auth', 'verified');
 
 // super admin dashboard 
 Route::get('/super-admin-dashboard', [HomeController::class, 'super_admin_dashboard']);
@@ -54,7 +55,7 @@ Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_pro
 
         // orders
 Route::get('/orders', [AdminController::class, 'orders']);  
-
+        // mark as delivered the order
 Route::get('/mark-as-delivered/{id}', [AdminController::class, 'mark_as_delivered']);
 
         // print invoices
@@ -65,15 +66,15 @@ Route::get('/search-orders', [AdminController::class, 'search_orders']);
 
 
 // #super admin =================> ================> ================>
-
+        // go to register admin page
 Route::get('/create-admin', [SuperAdminController::class, 'create_admin']);
-
+        // create a admin
 Route::post('/register-admin', [SuperAdminController::class, 'register_admin']);
-
+        // show admin list
 Route::get('/show-admins', [SuperAdminController::class, 'show_admins']);
-
+        // remove a admin
 Route::get('/remove-admin/{id}', [SuperAdminController::class, 'remove_admin']);
-
+        // show all users
 Route::get('/show-all-users', [SuperAdminController::class, 'show_all_users']);
 
 // User interface activities ================> ================> ================>
@@ -91,14 +92,14 @@ Route::get('/products-in-cart', [HomeController::class, 'show_products_in_cart']
 Route::get('/remove-product-from-cart/{id}', 
 [HomeController::class, 'remove_product_from_cart']);
 
-        //cash on deliver ===> ===> ===> ===> ===> ===>
+        // cash on deliver ===> ===> ===> ===> ===> ===>
 Route::get('/cash-on-delivery', [HomeController::class, 'cash_on_delivery']);
-
+        // place the order
 Route::post('/confirm-order', [HomeController::class, 'confirm_order']);
 
-        //card payment ===> ===> ===> ===> ===> ===>
+        // card payment ===> ===> ===> ===> ===> ===>
 Route::get('/card-payment/{total_price}', [HomeController::class, 'card_payment']);
-
+        // place the order
 Route::post('stripe/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
 
         // User's order (my orders) ===> ===> ===> ===> ===> ===>
