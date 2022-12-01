@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\DeliverBoyController;
 use App\Http\Controllers\SuperAdminController;
 
 use App\Http\Controllers\StripePaymentController;
@@ -29,6 +29,9 @@ Route::get('/super-admin-dashboard', [HomeController::class, 'super_admin_dashbo
 
 // admin dashboard
 Route::get('/admin-dashboard', [HomeController::class, 'admin_dashboard']);
+
+// deliver boy dashboard
+Route::get('/deliver-boy-dashboard', [HomeController::class, 'deliver_boy_dashboard']);
 
 // Admin ================> ================> ================>
         // -- Admin --> category 
@@ -55,14 +58,24 @@ Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_pro
 
         // orders
 Route::get('/orders', [AdminController::class, 'orders']);  
-        // mark as delivered the order
-Route::get('/mark-as-delivered/{id}', [AdminController::class, 'mark_as_delivered']);
+       
 
         // print invoices
 Route::get('/print-pdf/{id}', [AdminController::class, 'print_PDF']);        
 
         // search orders
-Route::get('/search-orders', [AdminController::class, 'search_orders']);        
+Route::get('/search-orders', [AdminController::class, 'search_orders']);   
+
+        // create deliver boy
+Route::get('/deliver-boy', [AdminController::class, 'deliver_boy']);
+
+Route::post('/add-deliver-boy', [AdminController::class, 'add_deliver_boy']);
+
+Route::get('/show-deliver-boys', [AdminController::class, 'show_deliver_boys']);
+
+Route::get('/delete-deliver-boy/{id}', [AdminController::class, 'delete_deliver_boy']);
+        // hand over the order to deliver section
+Route::post('/hand-on-order/{id}', [AdminController::class, 'hand_on_order']);
 
 
 // #super admin =================> ================> ================>
@@ -109,4 +122,11 @@ Route::get('/my-orders', [HomeController::class, 'my_orders']);
 Route::get('/cancel-order/{id}', [HomeController::class, 'cancel_order']); 
 
         // search products ===> ===> ===> ===> ===> ===>
-Route::get('/search-products', [HomeController::class, 'search_products_by_category']);     
+Route::get('/search-products', [HomeController::class, 'search_products_by_category']); 
+
+
+// Deliver Boy ================> ================> ================>
+Route::get('/orders-to-deliver', [DeliverBoyController::class, 'orders_to_deliver']);
+
+// mark as delivered the order
+Route::get('/mark-as-delivered/{id}', [DeliverBoyController::class, 'mark_as_delivered']);

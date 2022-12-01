@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>Sriyani Text</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -43,31 +43,27 @@
             display: inline-block;
             width: 200px;
         }
+        .btn{
+            padding: 15px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('superadmin.superAdminSidebar')
+        @include('admin.components.sidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('superadmin.superAdminHeader')
+            @include('admin.components.header')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
-                    @if(Session::has('success'))
+                    @if(session()->has('message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{Session::get('success')}}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @elseif(Session::has('fail'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{Session::get('fail')}}
+                        {{session()->get('message')}}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -75,9 +71,9 @@
                     @endif
 
                     <div class="div_center">
-                        <h2 class="h2_font">Register Admin Here</h2>
+                        <h2 class="h2_font">Add Deliver Boy</h2>
                         <div class="border pt-4 pb-4">
-                            <form action="{{url('register-admin')}}" method="POST">
+                            <form action="{{url('add-deliver-boy')}}" method="POST" >
                                 @csrf
                                 <div>
                                     <label>Name</label>
@@ -85,8 +81,18 @@
                                 </div>
 
                                 <div class="mt-2">
+                                    <label>Phone</label>
+                                    <input class="input_color ml-2" type="text" name="phone" maxlength="10" required="">
+                                </div>
+
+                                <div class="mt-2">
+                                    <label>Address</label>
+                                    <input class="input_color ml-2" type="text" name="address">
+                                </div>
+
+                                <div class="mt-2">
                                     <label>Email</label>
-                                    <input class="input_color ml-2" type="text" name="email" required="" autocomplete="off">
+                                    <input class="input_color ml-2" type="email" name="email" required="">
                                 </div>
 
                                 <div class="mt-2">
@@ -94,9 +100,8 @@
                                     <input class="input_color ml-2" type="password" name="password" required="">
                                 </div>
 
-
-                                <div class="mt-6 ml-60">
-                                    <input type="submit" class="btn btn-primary" name="submit" value="Register Admin">
+                                <div class="mt-2 ml-60">
+                                    <input type="submit" class="btn btn-primary" name="submit" value="Create">
                                 </div>
 
                             </form>

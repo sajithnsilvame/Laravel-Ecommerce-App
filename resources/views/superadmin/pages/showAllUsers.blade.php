@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sriyani Text</title>
+    <title>super admin-dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -21,7 +21,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="#" />
 
     <style type="text/css">
         .div_center {
@@ -53,14 +53,15 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('admin.sidebar')
+        @include('superadmin.components.superAdminSidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('admin.header')
+            @include('superadmin.components.superAdminHeader')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
+
                     @if(session()->has('message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{session()->get('message')}}
@@ -69,42 +70,40 @@
                         </button>
                     </div>
                     @endif
+
                     <div class="div_center">
-                        <h2 class="h2_font">Add Category</h2>
+                        <h2 class="h2_font">Users</h2>
 
-                        <form action="{{url('add-category')}}" method="POST">
-                            @csrf
-                            <input class="input_color" type="text" name="category" placeholder="write your category name">
+                        <div class="mt-6">
+                            <table class="table">
 
-                            <input type="submit" class="btn btn-primary ml-2" name="submit" value="Add Category">
-                        </form>
+                                <tr class="font-color">
+
+                                    <th> ID</th>
+                                    <th> Name</th>
+                                    <th> Email</th>
+                                    
+
+                                </tr>
+                                @foreach($allUsers as $allUsers)
+                                <tr class="font-color">
+
+                                    <td>{{$allUsers->id}}</td>
+                                    <td>{{$allUsers->name}}</td>
+                                    <td>{{$allUsers->email}}</td>
+                                    
+                                </tr>
+                                @endforeach
+
+                            </table>
+                        </div>
+
                     </div>
 
-                    <div class="mt-6">
-                        <table class="table">
 
-                            <tr class="font-color">
-                                <th> Category ID</th>
-                                <th> Category Name</th>
-                                <th> Delete</th>
-                                <th> Edit</th>
-                            </tr>
-
-
-
-                            @foreach($data as $data)
-                            <tr class="font-color">
-                                <th>{{$data->id}}</th>
-                                <td>{{$data->category_name}}</td>
-                                <td> <a onclick="return confirm('Are you sure?')" href="{{url('delete-category', $data->id)}}" class="btn btn-danger">Delete</a></td>
-                                <td> <a href="" class="btn btn-success">Edit</a></td>
-                            </tr>
-                            @endforeach
-
-                        </table>
-                    </div>
                 </div>
             </div>
+            
             <!-- container-scroller -->
             <!-- plugins:js -->
             <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>

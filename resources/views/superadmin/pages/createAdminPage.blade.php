@@ -21,7 +21,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="admin/assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
 
     <style type="text/css">
         .div_center {
@@ -39,13 +39,9 @@
             width: 50%;
         }
 
-        .table {
-            margin: auto;
-            width: 50%;
-        }
-
-        .font-color {
-            color: white;
+        label {
+            display: inline-block;
+            width: 200px;
         }
     </style>
 </head>
@@ -53,18 +49,25 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('superadmin.superAdminSidebar')
+        @include('superadmin.components.superAdminSidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('superadmin.superAdminHeader')
+            @include('superadmin.components.superAdminHeader')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
-                    @if(session()->has('message'))
+                    @if(Session::has('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{session()->get('message')}}
+                        {{Session::get('success')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @elseif(Session::has('fail'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{Session::get('fail')}}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -72,38 +75,47 @@
                     @endif
 
                     <div class="div_center">
-                        <h2 class="h2_font">Users</h2>
+                        <h2 class="h2_font">Register Admin Here</h2>
+                        <div class="border pt-4 pb-4">
+                            <form action="{{url('register-admin')}}" method="POST">
+                                @csrf
+                                <div>
+                                    <label>Name</label>
+                                    <input class="input_color ml-2" type="text" name="name" required="">
+                                </div>
 
-                        <div class="mt-6">
-                            <table class="table">
+                                <div class="mt-2">
+                                    <label>Email</label>
+                                    <input class="input_color ml-2" type="text" name="email" required="" >
+                                </div>
 
-                                <tr class="font-color">
+                                <div class="mt-2">
+                                    <label>Phone</label>
+                                    <input class="input_color ml-2" type="text" name="phone" maxlength="10" required="" >
+                                </div>
 
-                                    <th> ID</th>
-                                    <th> Name</th>
-                                    <th> Email</th>
-                                    
+                                <div class="mt-2">
+                                    <label>Address</label>
+                                    <input class="input_color ml-2" type="text" name="address" required="" >
+                                </div>
 
-                                </tr>
-                                @foreach($allUsers as $allUsers)
-                                <tr class="font-color">
+                                <div class="mt-2">
+                                    <label>Password</label>
+                                    <input class="input_color ml-2" type="password" name="password" required="">
+                                </div>
 
-                                    <td>{{$allUsers->id}}</td>
-                                    <td>{{$allUsers->name}}</td>
-                                    <td>{{$allUsers->email}}</td>
-                                    
-                                </tr>
-                                @endforeach
 
-                            </table>
+                                <div class="mt-6 ml-60">
+                                    <input type="submit" class="btn btn-primary" name="submit" value="Register Admin">
+                                </div>
+
+                            </form>
                         </div>
-
                     </div>
 
 
                 </div>
             </div>
-            
             <!-- container-scroller -->
             <!-- plugins:js -->
             <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>

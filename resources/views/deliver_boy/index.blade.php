@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>Sriyani Text</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -27,13 +27,13 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('superadmin.components.superAdminSidebar')
+        @include('deliver_boy.components.sidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('superadmin.components.superAdminHeader')
+            @include('deliver_boy.components.header')
             <!-- partial -->
-            @include('superadmin.components.superAdminBody')
+            @include('deliver_boy.components.contentBody')
         </div>
     </div>
     <!-- container-scroller -->

@@ -50,6 +50,15 @@ class HomeController extends Controller
         }
         
     }
+    // deliver boy dashboard
+    public function deliver_boy_dashboard(){
+        if (Auth::id()) {
+            return view('deliver_boy.index');
+        } else {
+            return redirect('login');
+        }
+    }
+
     // redirect user
     public function redirect(){
         if(Auth::id()){
@@ -59,11 +68,15 @@ class HomeController extends Controller
             if ($usertype == '2') {
 
                 return view('superadmin.superadminIndex');
-            } elseif ($usertype == '1') {
+            } 
+            elseif ($usertype == '1') {
 
                 return view('admin.adminIndex');
-            } else {
-
+            } 
+            elseif($usertype == '3'){
+                return view('deliver_boy.index');
+            }
+            else {
                 $productList = Product::paginate(9);
                 return view('userHome.userIndex', compact('productList'));
             }
@@ -79,7 +92,7 @@ class HomeController extends Controller
         $product = Product::find($id);
         $productList = Product::paginate(9);
         
-        return view('userhome.productDetailPage', compact('product', 'productList'));
+        return view('userhome.components.productDetailPage', compact('product', 'productList'));
     }
 
     // add to cart
@@ -137,7 +150,7 @@ class HomeController extends Controller
             $id = Auth::User()->id;
             $cart = cart::where('user_id', '=', $id)->get();
 
-            return view('userhome.cart', compact('cart'));
+            return view('userhome.pages.cart', compact('cart'));
         }
         else
         {
@@ -161,7 +174,7 @@ class HomeController extends Controller
     public function cash_on_delivery(){
 
         $user = Auth::User();
-        return view('userhome.cashOnDelivery', compact('user'));
+        return view('userhome.components.cashOnDelivery', compact('user'));
     }
 
     public function confirm_order(Request $request){
@@ -210,7 +223,7 @@ class HomeController extends Controller
     {
 
         $user = Auth::User();
-        return view('userhome.cardPayment', compact('user', 'total_price'));
+        return view('userhome.components.cardPayment', compact('user', 'total_price'));
     }
 
     public function stripePost(Request $request, $total_price)
@@ -226,7 +239,7 @@ class HomeController extends Controller
             "description" => "Payment from customer"
         ]);
 
-        // Session::flash('success', 'Payment successful!');
+        
         $user = Auth::User();
         $userId = $user->id;
         $data = Cart::where('user_id', '=', $userId)->get();
@@ -248,7 +261,7 @@ class HomeController extends Controller
             $order->image = $data->image;
             $order->product_id = $data->product_id;
 
-            $order->payment_status = 'paid';
+            $order->payment_status = 'Paid';
             $order->delivery_status = 'processing';
 
             $order->save();
@@ -266,12 +279,15 @@ class HomeController extends Controller
     }
 
     public function my_orders(){
-        $user = Auth::User();
-        $userId = $user->id;
-        $orders = Order::where('user_id', '=', $userId)->get();
-
-        
-        return view('userHome.orders', compact('orders'));
+        if(Auth::id()){
+            $user = Auth::User();
+            $userId = $user->id;
+            $orders = Order::where('user_id', '=', $userId)->get();
+            return view('userHome.pages.orders', compact('orders'));
+        }
+        else{
+            return redirect('login');
+        }
     }
 
     public function cancel_order($id){

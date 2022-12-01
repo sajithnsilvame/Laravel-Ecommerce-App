@@ -54,7 +54,7 @@
 <body>
 
     <!-- header section strats -->
-    @include('userHome.header')
+    @include('userHome.components.header')
     <!-- end header section -->
 
 

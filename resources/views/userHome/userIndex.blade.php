@@ -26,32 +26,32 @@
 <body>
     <div class="hero_area">
         <!-- header section strats -->
-        @include('userHome.header')
+        @include('userHome.components.header')
         <!-- end header section -->
         <!-- slider section -->
-        @include('userHome.slider')
+        @include('userHome.components.slider')
         <!-- end slider section -->
     </div>
     <!-- why section -->
-    @include('userHome.whySection')
+    @include('userHome.components.whySection')
     <!-- end why section -->
 
     <!-- arrival section -->
-    @include('userHome.arrivals')
+    @include('userHome.components.arrivals')
     <!-- end arrival section -->
 
     <!-- product section -->
-    @include('userHome.products')
+    @include('userHome.components.products')
     <!-- end product section -->
 
     <!-- subscribe section -->
-    @include('userHome.subscribe')
+    @include('userHome.components.subscribe')
     <!-- end subscribe section -->
     <!-- client section -->
-    @include('userHome.client')
+    @include('userHome.components.client')
     <!-- end client section -->
     <!-- footer start -->
-    @include('userHome.footer')
+    @include('userHome.components.footer')
     <!-- footer end -->
     <div class="cpy_">
         <p class="mx-auto">© 2021 All Rights Reserved By <br>

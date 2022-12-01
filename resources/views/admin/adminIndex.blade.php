@@ -27,13 +27,13 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('admin.sidebar')
+        @include('admin.components.sidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('admin.header')
+            @include('admin.components.header')
             <!-- partial -->
-            @include('admin.contentBody')
+            @include('admin.components.contentBody')
         </div>
     </div>
     <!-- container-scroller -->

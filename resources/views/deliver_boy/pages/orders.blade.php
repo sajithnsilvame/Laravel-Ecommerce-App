@@ -82,18 +82,26 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('admin.sidebar')
+        @include('deliver_boy.components.sidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('admin.header')
+            @include('deliver_boy.components.header')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
 
+                @if(session()->has('message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{session()->get('message')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
-                    <div class="div_center">
-                        <h2 class="h2_font">All Orders</h2>
+                    {{-- <div class="div_center">
+                        <h2 class="h2_font">Orders to Deliver</h2>
 
                         <form action="{{url('search-orders')}}" method="GET">
                             @csrf
@@ -103,7 +111,7 @@
                             </div>
 
                         </form>
-                    </div>
+                    </div> --}}
 
 
 
@@ -113,41 +121,42 @@
                             <tr class="font-color">
                                 <th>Order Id</th>
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Product Id</th>
-                                <th>Product Title</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
+                                <th>Amount</th>
                                 <th>Payment Status</th>
                                 <th>Deliver Status</th>
-                                <th>Action</th>
-                                <th>Invoice</th>
+                                <th>Mark as Deliver</th>    
                             </tr>
-                            @foreach($order as $order)
+                            
+
+                        @foreach ($handsOnOrder as $hand_on_Orders)
                             <tr class="font-color">
-                                <td>{{$order->id}}</td>
-                                <td>{{$order->name}}</td>
-                                <td>{{$order->email}}</td>
-                                <td>{{$order->phone}}</td>
-                                <td>{{$order->address}}</td>
-                                <td>{{$order->product_id}}</td>
-                                <td>{{$order->product_title}}</td>
-                                <td>{{$order->quantity}}</td>
-                                <td>Rs {{$order->price}}</td>
-                                <td>{{$order->payment_status}}</td>
-                                <td>{{$order->delivery_status}}</td>
-
-                                @if($order->delivery_status == 'processing')
-                                <td><a href="{{url('mark-as-delivered', $order->id)}}" class="btn btn-primary" onclick="return confirm('Are you sure to change the delivery status?')">Mark as Delivered</a></td>
-                                @else
-                                <td><a href="" class="btn btn-success" onclick="false">Delivered<i class="mdi mdi-marker-check"></i></a></td>
-                                @endif
-
-                                <td><a href="{{url('print-pdf', $order->id)}}" class="btn btn-warning" style="background-color: #374adb;" onmouseover="this.style.backgroundColor = '#3776db'" ; onmouseout="this.style.backgroundColor = '#374adb'" ;>Download</a></td>
+                                <td>{{$hand_on_Orders->order_id}}</td>
+                                <td>{{$hand_on_Orders->name}}</td>
+                                <td>{{$hand_on_Orders->phone}}</td>
+                                <td>{{$hand_on_Orders->address}}</td>
+                                <td>{{$hand_on_Orders->amount}}</td>
+                                <td>{{$hand_on_Orders->payment_status}}</td>
+                                <td>{{$hand_on_Orders->deliver_status}}</td>
+                                
+                                    @if ($hand_on_Orders->deliver_status == 'processing')
+                                        <td>
+                                            <a href="{{url('mark-as-delivered',$hand_on_Orders->id)}}" class="btn btn-primary" 
+		                                    onclick="return confirm('Are you sure to change the delivery status?')">Mark as Delivered</a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="" class="btn btn-success" onclick="false">Delivered</a>
+                                        </td>
+                                    @endif
+                                    
+                                
+                        
                             </tr>
-                            @endforeach
+                        @endforeach    
+                            
+                            
                         </table>
                     </div>
 

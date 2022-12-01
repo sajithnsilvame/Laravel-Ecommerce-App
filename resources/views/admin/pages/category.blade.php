@@ -3,8 +3,6 @@
 
 <head>
     <!-- Required meta tags -->
-    <base href="/public">
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sriyani Text</title>
@@ -41,13 +39,13 @@
             width: 50%;
         }
 
-        label {
-            display: inline-block;
-            width: 200px;
+        .table {
+            margin: auto;
+            width: 50%;
         }
 
-        .btn {
-            padding: 15px;
+        .font-color {
+            color: white;
         }
     </style>
 </head>
@@ -55,15 +53,14 @@
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        @include('admin.sidebar')
+        @include('admin.components.sidebar')
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_navbar.html -->
-            @include('admin.header')
+            @include('admin.components.header')
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-
                     @if(session()->has('message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{session()->get('message')}}
@@ -72,68 +69,40 @@
                         </button>
                     </div>
                     @endif
-
                     <div class="div_center">
-                        <h2 class="h2_font">Edit Product</h2>
-                        <div class="border pt-4 pb-4">
-                            <form action="{{url('update_product_confirm', $product->id)}}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                        <h2 class="h2_font">Add Category</h2>
 
+                        <form action="{{url('add-category')}}" method="POST">
+                            @csrf
+                            <input class="input_color" type="text" name="category" placeholder="write your category name">
 
-                                <div>
-                                    <label>Product Title</label>
-                                    <input class="input_color ml-2" type="text" name="title" required="" value="{{$product->title}}">
-                                </div>
-
-                                <div class="mt-2">
-                                    <label>Product Description</label>
-                                    <input class="input_color ml-2" type="text" name="description" required="" value="{{$product->description}}">
-                                </div>
-
-                                <div class=" mt-2">
-                                    <label>Product Price</label>
-                                    <input class="input_color ml-2" type="number" name="price" required="" value="{{$product->price}}">
-                                </div>
-
-                                <div class="mt-2">
-                                    <label>Discount Price</label>
-                                    <input class="input_color ml-2" type="number" name="discount_price" value="{{$product->discount_price}}">
-                                </div>
-
-                                <div class="mt-2">
-                                    <label>Product Quantity</label>
-                                    <input class="input_color ml-2" type="number" min="0" name="quantity" value="{{$product->quantity}}" required="">
-                                </div>
-
-                                <div class="mt-2">
-                                    <label>Product Category</label>
-                                    <select class="input_color ml-2" name="category" required="">
-
-                                        <option selected="" value="{{$product->category}}">{{$product->category}}</option>
-                                        @foreach($category as $category)
-                                        <option value="{{$category->category_name}}"> {{$category->category_name}} </option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
-
-                                <div class="mt-2">
-                                    <label>Current Product Image</label>
-                                    <img style="margin:auto;" height="100" width="100" src="/product_img/{{$product->image}}">
-                                    <label>Select New Image</label>
-                                    <input class="input_color ml-2" type="file" name="image">
-
-                                </div>
-
-                                <div class="mt-4 ml-60">
-                                    <input type="submit" class="btn btn-primary" name="submit" value="Update Product">
-                                </div>
-
-                            </form>
-                        </div>
+                            <input type="submit" class="btn btn-primary ml-2" name="submit" value="Add Category">
+                        </form>
                     </div>
 
+                    <div class="mt-6">
+                        <table class="table">
 
+                            <tr class="font-color">
+                                <th> Category ID</th>
+                                <th> Category Name</th>
+                                <th> Delete</th>
+                                <th> Edit</th>
+                            </tr>
+
+
+
+                            @foreach($data as $data)
+                            <tr class="font-color">
+                                <th>{{$data->id}}</th>
+                                <td>{{$data->category_name}}</td>
+                                <td> <a onclick="return confirm('Are you sure?')" href="{{url('delete-category', $data->id)}}" class="btn btn-danger">Delete</a></td>
+                                <td> <a href="" class="btn btn-success">Edit</a></td>
+                            </tr>
+                            @endforeach
+
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- container-scroller -->

@@ -13,7 +13,7 @@ class SuperAdminController extends Controller
 {
     public function create_admin(){
 
-        return view('superadmin.createAdminPage');
+        return view('superadmin.pages.createAdminPage');
     }
 
     public function register_admin(Request $request){
@@ -23,12 +23,16 @@ class SuperAdminController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required | email | unique:users',
+            'phone' => 'required | numeric',
+            'address' => 'required',
             'password' => 'required'
         ]);
 
 
         $registerAdmin->name = $request->name;
         $registerAdmin->email = $request->email;
+        $registerAdmin->phone = $request->phone;
+        $registerAdmin->address = $request->address;
         $registerAdmin->password = bcrypt($request->password);
 
         $registerAdmin->usertype = '1';
@@ -46,7 +50,7 @@ class SuperAdminController extends Controller
 
         $adminList = DB::table('users')->where('usertype', 1)->get();
 
-        return view('superadmin.showAdminList', compact('adminList')); 
+        return view('superadmin.pages.showAdminList', compact('adminList')); 
     }
 
     public function remove_admin($id){
@@ -64,6 +68,6 @@ class SuperAdminController extends Controller
     public function show_all_users(){
 
         $allUsers = DB::table('users')->where('usertype', 0)->get();
-        return view('superadmin.showAllUsers', compact('allUsers'));
+        return view('superadmin.pages.showAllUsers', compact('allUsers'));
     }
 }
