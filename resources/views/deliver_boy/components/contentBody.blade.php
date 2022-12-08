@@ -7,7 +7,7 @@
                         <div class="card-body py-0 px-0 px-sm-3">
                             <div class="row align-items-center">
                                 <div class="col-4 col-sm-3 col-xl-2">
-                                    <img src="assets/images/dashboard/Group126@2x.png" class="gradient-corona-img img-fluid" alt="">
+                                    <img src="/assets/images/dashboard/Group126@2x.png" class="gradient-corona-img img-fluid" alt="">
                                 </div>
 
                                 <div class="col-5 col-sm-7 col-xl-8 p-0">
@@ -28,8 +28,8 @@
                             <div class="row">
                                 <div class="col-9">
                                     <div class="d-flex align-items-center align-self-start">
-                                        <h3 class="mb-0">$12.34</h3>
-                                        <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                                        <h3 class="mb-0">{{$ordersToDeliver}}</h3>
+                                        {{-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> --}}
                                     </div>
                                 </div>
                                 <div class="col-3">
@@ -38,11 +38,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <h6 class="text-muted font-weight-normal">Potential growth</h6>
+                            <h6 class="text-muted font-weight-normal">Orders to Deliver</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                {{-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -61,8 +61,9 @@
                             <h6 class="text-muted font-weight-normal">Revenue current</h6>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                </div> --}}
+
+                {{-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -81,8 +82,9 @@
                             <h6 class="text-muted font-weight-normal">Daily Income</h6>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                </div> --}}
+
+                {{-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -101,7 +103,7 @@
                             <h6 class="text-muted font-weight-normal">Expense current</h6>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
 
@@ -109,7 +111,7 @@
 
 
             <div class="row">
-                <div class="col-sm-4 grid-margin">
+                {{-- <div class="col-sm-4 grid-margin">
                     <div class="card">
                         <div class="card-body">
                             <h5>Revenue</h5>
@@ -127,8 +129,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4 grid-margin">
+                </div> --}}
+
+                {{-- <div class="col-sm-4 grid-margin">
                     <div class="card">
                         <div class="card-body">
                             <h5>Sales</h5>
@@ -146,8 +149,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4 grid-margin">
+                </div> --}}
+
+                {{-- <div class="col-sm-4 grid-margin">
                     <div class="card">
                         <div class="card-body">
                             <h5>Purchase</h5>
@@ -165,7 +169,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!--  -->

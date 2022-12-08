@@ -2,37 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Auth;
-
-use App\Models\User;
-
-use App\Models\Product;
-
-use App\Models\Cart;
-
-use App\Models\Order;
-
-use RealRashid\SweetAlert\Facades\Alert;
+use Stripe;
 
 use Session;
 
-use Stripe;
+use App\Models\Cart;
+
+use App\Models\User;
+
+use App\Models\Order;
+
+use App\Models\Product;
+
+use App\Models\Hands_on_orders;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
-class HomeController extends Controller
-{
+class HomeController extends Controller{
     // '/'
     public function index(){
         
         $productList = Product::paginate(9);
         return view('userHome.userIndex', compact('productList'));
     }
+    // product page
+    public function product_page(){
+        $productList = Product::paginate(9);
+        return view('userHome.pages.products_page', compact('productList'));
+    }
     // admin dashboard
     public function admin_dashboard(){
         if(Auth::id()){
-            return view('admin.adminIndex');
+
+            $products = Product::all()->count();
+            $orders = Order::all()->count();
+            $customers = DB::table('users')->where('usertype', 0)->count();
+            $order = Order::all();
+            $total_revenue = 0;
+
+            foreach ($order as $order) {
+                $total_revenue = $total_revenue + $order->price;
+            }
+
+            $delivered_orders = DB::table('orders')->where('delivery_status', 'Delivered')->count();
+            $processing_orders = DB::table('orders')->where('delivery_status', 'processing')->count();
+            return view(
+                'admin.adminIndex',
+                compact(
+                    'products',
+                    'orders',
+                    'customers',
+                    'total_revenue',
+                    'delivered_orders',
+                    'processing_orders'
+                )
+            );
         }
         else{
             return redirect('login');
@@ -40,10 +70,34 @@ class HomeController extends Controller
             
     }
     // super admin dashboard
-    public function super_admin_dashboard()
-    {   
+    public function super_admin_dashboard(){   
         if(Auth::id()){
-            return view('superadmin.superAdminIndex');
+
+            $products = Product::all()->count();
+            $orders = Order::all()->count();
+            $customers = DB::table('users')->where('usertype', 0)->count();
+            $deliver_boys = DB::table('users')->where('usertype', 3)->count();
+            $order = Order::all();
+            $total_revenue = 0;
+
+            foreach ($order as $order) {
+                $total_revenue = $total_revenue + $order->price;
+            }
+            $delivered_orders = DB::table('orders')->where('delivery_status', 'Delivered')->count();
+            $processing_orders = DB::table('orders')->where('delivery_status', 'processing')->count();
+            return view(
+                'superadmin.superadminIndex',
+                compact(
+                    'products',
+                    'orders',
+                    'customers',
+                    'total_revenue',
+                    'delivered_orders',
+                    'processing_orders',
+                    'deliver_boys'
+                )
+            );
+            return view('superadmin.superadminIndex');
         }
         else{
             return redirect('login');
@@ -53,7 +107,8 @@ class HomeController extends Controller
     // deliver boy dashboard
     public function deliver_boy_dashboard(){
         if (Auth::id()) {
-            return view('deliver_boy.index');
+            $ordersToDeliver = DB::table('hands_on_orders')->where('deliver_status', 'processing')->count();
+            return view('deliver_boy.index', compact('ordersToDeliver'));
         } else {
             return redirect('login');
         }
@@ -66,15 +121,52 @@ class HomeController extends Controller
             $usertype = Auth::User()->usertype;
 
             if ($usertype == '2') {
+                $products = Product::all()->count();
+                $orders = Order::all()->count();
+                $customers = DB::table('users')->where('usertype', 0)->count();
+                $deliver_boys = DB::table('users')->where('usertype', 3)->count();
+                $order = Order::all();
+                $total_revenue = 0;
 
+                foreach ($order as $order) {
+                    $total_revenue = $total_revenue + $order->price;
+                }
+                $delivered_orders = DB::table('orders')->where('delivery_status', 'Delivered')->count();
+                $processing_orders = DB::table('orders')->where('delivery_status', 'processing')->count();
+                return view(
+                    'superadmin.superadminIndex',
+                    compact(
+                        'products',
+                        'orders',
+                        'customers',
+                        'total_revenue',
+                        'delivered_orders',
+                        'processing_orders',
+                        'deliver_boys'
+                    )
+                );
                 return view('superadmin.superadminIndex');
             } 
             elseif ($usertype == '1') {
 
-                return view('admin.adminIndex');
+                $products = Product::all()->count();
+                $orders = Order::all()->count();
+                $customers = DB::table('users')->where('usertype', 0)->count();
+                $order = Order::all();
+                $total_revenue = 0;
+                
+                foreach($order as $order){
+                    $total_revenue = $total_revenue + $order->price;
+                }
+                $delivered_orders = DB::table('orders')->where('delivery_status', 'Delivered')->count();
+                $processing_orders = DB::table('orders')->where('delivery_status', 'processing')->count();
+                return view('admin.adminIndex', 
+                compact('products','orders','customers', 'total_revenue', 
+                'delivered_orders', 'processing_orders'));
             } 
             elseif($usertype == '3'){
-                return view('deliver_boy.index');
+                $ordersToDeliver = DB::table('hands_on_orders')->where('deliver_status', 'processing')->count();
+                return view('deliver_boy.index',compact('ordersToDeliver'));
             }
             else {
                 $productList = Product::paginate(9);
@@ -101,38 +193,60 @@ class HomeController extends Controller
         if(Auth::id()){
 
             $user = Auth::User();
+            $userID = $user->id;
             $product = Product::find($id);
             $cart = new Cart;
 
-            $cart-> name = $user->name;
-            $cart->email = $user->email;
-            $cart->phone = $user->phone;
-            $cart->address = $user->address;
-            $cart->user_id = $user->id;
-            $cart->product_title = $product->title;
+            $exist_product_id = Cart::where('product_id','=',$id)->where('user_id','=', $userID)->get('id')->first();
 
-            
+            if($exist_product_id){
 
-            /*if there is discont price, it will add to the cart. 
-            otherwise price will add to the cart */ 
+                $cart = Cart::find($exist_product_id)->first();
+                $quantity = $cart->quantity;
+                $cart->quantity = $quantity + $request->quantity;
 
-            if($product->discount_price != null){
+                if ($product->discount_price != null) {
 
-                $cart->price = $product->discount_price * $request->quantity;
+                    $cart->price = $product->discount_price * $cart->quantity;
+                } else {
+
+                    $cart->price = $product->price * $cart->quantity;
+                }
+
+                $cart->save();
+                return redirect()->back()->with('message', 'Product added to the cart');
             }
             else{
 
-                $cart->price = $product->price * $request->quantity;
+                $cart->name = $user->name;
+                $cart->email = $user->email;
+                $cart->phone = $user->phone;
+                $cart->address = $user->address;
+                $cart->user_id = $user->id;
+                $cart->product_title = $product->title;
+
+                /*if there is discont price, it will add to the cart. 
+            otherwise price will add to the cart */
+
+                if ($product->discount_price != null) {
+
+                    $cart->price = $product->discount_price * $request->quantity;
+                } else {
+
+                    $cart->price = $product->price * $request->quantity;
+                }
+
+
+                $cart->image = $product->image;
+                $cart->product_id = $product->id;
+                $cart->size = $request->sizes;
+                $cart->quantity = $request->quantity;
+
+                $cart->save();
+
+                return redirect()->back()->with('message','Product added to the cart');
             }
-
-
-            $cart->image = $product->image;
-            $cart->product_id = $product->id;
-            $cart->quantity = $request->quantity;
-
-            $cart->save();
-
-            return redirect()->back();
+            
         }
 
         else{
@@ -197,6 +311,7 @@ class HomeController extends Controller
             $order->product_title = $data->product_title;
             $order->quantity = $data->quantity;
             $order->price = $data->price;
+            $order->size = $data->size;
             $order->image = $data->image;
             $order->product_id = $data->product_id;
 
@@ -219,15 +334,15 @@ class HomeController extends Controller
 
     // card payment
 
-    public function card_payment($total_price)
-    {
+    public function card_payment($total_price){
 
         $user = Auth::User();
-        return view('userhome.components.cardPayment', compact('user', 'total_price'));
+        $userId = $user->id;
+        $cart = Cart::find($userId);
+        return view('userhome.components.cardPayment', compact('user', 'total_price', 'cart'));
     }
 
-    public function stripePost(Request $request, $total_price)
-    {
+    public function stripePost(Request $request, $total_price){
 
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -258,12 +373,14 @@ class HomeController extends Controller
             $order->product_title = $data->product_title;
             $order->quantity = $data->quantity;
             $order->price = $data->price;
+            $order->size = $data->size;
             $order->image = $data->image;
             $order->product_id = $data->product_id;
 
             $order->payment_status = 'Paid';
             $order->delivery_status = 'processing';
 
+            
             $order->save();
 
             // after the order cart will be clear..!!
@@ -275,7 +392,7 @@ class HomeController extends Controller
         Alert::class::success('Payment is Successful', 
         'Thank you for purchasing your item will be delivered as soon as possible!');
 
-        return back();
+        return redirect()->back();
     }
 
     public function my_orders(){
@@ -310,6 +427,14 @@ class HomeController extends Controller
         orwhere('description', 'LIKE', "%$data%")->paginate(9);
 
         return view('userHome.userIndex', compact('productList'));
+    }
+
+    public function search_products_in_product_page(Request $request){
+        
+        $product = $request->search;
+        $productList = product::where('category', 'LIKE', "%$product%")->
+        orwhere('description', 'LIKE', "%$product%")->paginate(9);
+        return view('userHome.pages.products_page', compact('productList'));
     }
     
 }

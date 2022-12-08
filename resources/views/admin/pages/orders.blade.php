@@ -7,18 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sriyani Text</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/css/vendor.bundle.base.css')}}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="admin/assets/vendors/jvectormap/jquery-jvectormap.css">
-    <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
-    <link rel="stylesheet" href="admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-
-    <link rel="stylesheet" href="admin/assets/css/style.css">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/jvectormap/jquery-jvectormap.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/owl-carousel-2/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css')}}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="{{asset('admin/assets/images/favicon.png')}}"/>
 
     <style type="text/css">
         .div_center {
@@ -124,9 +127,11 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
+                                <th>Aditional</th>
                                 <th>Product Id</th>
                                 <th>Product Title</th>
                                 <th>Quantity</th>
+                                <th>Size</th>
                                 <th>Price</th>
                                 <th>Payment Status</th>
                                 <th>Deliver Status</th>
@@ -140,12 +145,26 @@
                                 <td>{{$order->email}}</td>
                                 <td>{{$order->phone}}</td>
                                 <td>{{$order->address}}</td>
+                                <td>{{$order->additional}}</td>
                                 <td>{{$order->product_id}}</td>
                                 <td>{{$order->product_title}}</td>
                                 <td>{{$order->quantity}}</td>
+                                <td>{{$order->size}}</td>
                                 <td>Rs {{$order->price}}</td>
-                                <td>{{$order->payment_status}}</td>
-                                <td>{{$order->delivery_status}}</td>
+                                <td>  
+                                    @if ($order->payment_status == 'Paid' or $order->payment_status == 'Payment Received')
+                                        <h4 class="btn btn-success">success</h4>
+                                    @else
+                                        <h4 class="btn btn-warning">Cash on Deliver</h4>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($order->delivery_status == 'processing')
+                                        <h4 class="btn btn-danger">processing..</h4>
+                                    @else
+                                        <h4 class="btn btn-success">Delivered</h4>
+                                    @endif
+                                </td>
 
                                 
                                 

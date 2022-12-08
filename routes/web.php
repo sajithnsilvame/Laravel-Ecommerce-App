@@ -92,6 +92,7 @@ Route::get('/show-all-users', [SuperAdminController::class, 'show_all_users']);
 
 // User interface activities ================> ================> ================>
 
+Route::get('/products', [HomeController::class, 'product_page']);
         // product details ===> ===> ===> ===> ===> ===>
 Route::get('/product-details/{id}', [HomeController::class, 'product_details']);
 
@@ -113,7 +114,7 @@ Route::post('/confirm-order', [HomeController::class, 'confirm_order']);
         // card payment ===> ===> ===> ===> ===> ===>
 Route::get('/card-payment/{total_price}', [HomeController::class, 'card_payment']);
         // place the order
-Route::post('stripe/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
+Route::post('payment/{total_price}', [HomeController::class, 'stripePost'])->name('stripe.post');
 
         // User's order (my orders) ===> ===> ===> ===> ===> ===>
 Route::get('/my-orders', [HomeController::class, 'my_orders']);
@@ -123,6 +124,8 @@ Route::get('/cancel-order/{id}', [HomeController::class, 'cancel_order']);
 
         // search products ===> ===> ===> ===> ===> ===>
 Route::get('/search-products', [HomeController::class, 'search_products_by_category']); 
+
+Route::get('/products-search', [HomeController::class, 'search_products_in_product_page']);
 
 
 // Deliver Boy ================> ================> ================>

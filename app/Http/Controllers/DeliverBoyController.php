@@ -21,8 +21,7 @@ class DeliverBoyController extends Controller
         }
     }
 
-    public function mark_as_delivered($id)
-    {
+    public function mark_as_delivered($id){
 
         if (Auth::id()) {
             $hands_on_order = Hands_on_orders::find($id);

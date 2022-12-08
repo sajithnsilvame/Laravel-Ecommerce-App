@@ -4,15 +4,15 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
         </button>
-        <ul class="navbar-nav w-100">
+        {{-- <ul class="navbar-nav w-100">
             <li class="nav-item w-100">
                 <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
                     <input type="text" class="form-control" placeholder="Search products">
                 </form>
             </li>
-        </ul>
+        </ul> --}}
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown d-none d-lg-block">
+            {{-- <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">+ Create New Project</a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
                     <h6 class="p-3 mb-0">Projects</h6>
@@ -52,7 +52,7 @@
                     <div class="dropdown-divider"></div>
                     <p class="p-3 mb-0 text-center">See all projects</p>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="#">
                     <i class="mdi mdi-view-grid"></i>
@@ -68,7 +68,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic">
+                            <img src="/assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic">
                         </div>
                         <div class="preview-item-content">
                             <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
@@ -78,7 +78,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic">
+                            <img src="/assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic">
                         </div>
                         <div class="preview-item-content">
                             <p class="preview-subject ellipsis mb-1">Cregh send you a message</p>
@@ -88,7 +88,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic">
+                            <img src="/assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic">
                         </div>
                         <div class="preview-item-content">
                             <p class="preview-subject ellipsis mb-1">Profile picture updated</p>

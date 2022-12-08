@@ -1,7 +1,7 @@
 <header class="header_section">
     <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="{{url('/')}}" style="font-size: 35px; color:dodgerblue;">Sriyani Textile</a>
+            <a class="navbar-brand" href="{{url('/')}}" style="font-size: 35px; color:dodgerblue; font-family: bradley hand,cursive;">SriyaniTextile</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""> </span>
             </button>
@@ -12,14 +12,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="">Products</a>
+                        <a class="nav-link" href="{{url('products')}}">Products</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="">Blog</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="">Contact</a>
-                    </li>
+                    </li> --}}
                 @if(Route::has('login'))
                     @auth
                     <li class="nav-item">

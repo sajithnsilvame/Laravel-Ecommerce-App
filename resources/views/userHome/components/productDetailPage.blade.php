@@ -3,7 +3,7 @@
 
 <head>
     <!-- Basic -->
-    <base href="/public">
+    
 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,16 +13,16 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="">
     <title>Sriyani Text</title>
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="userhome/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('userhome/css/bootstrap.css')}}" />
     <!-- font awesome style -->
-    <link href="userhome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/font-awesome.min.css')}}" rel="stylesheet" />
     <!-- Custom styles for this template -->
-    <link href="userhome/css/style.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/style.css')}}" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="userhome/css/responsive.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/responsive.css')}}" rel="stylesheet" />
 
     <style>
         body {
@@ -132,7 +132,7 @@
             <div class="photo-container">
                 <div class="photo-main">
 
-                    <img width="400" height="350" style="padding: 20px;" src="product_img/{{$product->image}}">
+                    <img width="400" height="350" style="padding: 20px;" src="/product_img/{{$product->image}}">
                 </div>
 
             </div>
@@ -174,6 +174,14 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-4 mt-1">
+                            <select name="sizes">
+                            <option value="small">small</option>
+                            <option value="medium">medium</option>
+                            <option value="large">large</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-4 mt-1 " style="margin-left: -25px;">
                             <input type="number" name="quantity" value="1" min="1" style="width: 100px;">
                         </div>
                         <div class="-ml-8">
@@ -187,12 +195,12 @@
 
 
     <div>
-        @include('userhome.products')
+        @include('userhome.components.products')
     </div>
 
 
     <!-- footer start -->
-    @include('userHome.footer')
+    @include('userHome.components.footer')
     <!-- footer end -->
     <div class="cpy_ mt-80">
         <p class="mx-auto">© 2021 All Rights Reserved By <br>
@@ -201,14 +209,14 @@
 
         </p>
     </div>
-    <!-- jQery -->
-    <script src="userhome/js/jquery-3.4.1.min.js"></script>
+   <!-- jQery -->
+    <script src="{{asset('userhome/js/jquery-3.4.1.min.js')}}"></script>
     <!-- popper js -->
-    <script src="userhome/js/popper.min.js"></script>
+    <script src="{{asset('userhome/js/popper.min.js')}}"></script>
     <!-- bootstrap js -->
-    <script src="userhome/js/bootstrap.js"></script>
+    <script src="{{asset('userhome/js/bootstrap.js')}}"></script>
     <!-- custom js -->
-    <script src="userhome/js/custom.js"></script>
+    <script src="{{asset('userhome/js/custom.js')}}"></script>
 </body>
 
 </html>

@@ -11,16 +11,16 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="shortcut icon" href="/images/favicon.png" type="">
     <title>Sriyani Text</title>
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="userhome/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('userhome/css/bootstrap.css')}}" />
     <!-- font awesome style -->
-    <link href="userhome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/font-awesome.min.css')}}" rel="stylesheet" />
     <!-- Custom styles for this template -->
-    <link href="userhome/css/style.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/style.css')}}" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="userhome/css/responsive.css" rel="stylesheet" />
+    <link href="{{asset('userhome/css/responsive.css')}}" rel="stylesheet" />
 </head>
 
 <body>
@@ -61,13 +61,13 @@
         </p>
     </div>
     <!-- jQery -->
-    <script src="userhome/js/jquery-3.4.1.min.js"></script>
+    <script src="{{asset('userhome/js/jquery-3.4.1.min.js')}}"></script>
     <!-- popper js -->
-    <script src="userhome/js/popper.min.js"></script>
+    <script src="{{asset('userhome/js/popper.min.js')}}"></script>
     <!-- bootstrap js -->
-    <script src="userhome/js/bootstrap.js"></script>
+    <script src="{{asset('userhome/js/bootstrap.js')}}"></script>
     <!-- custom js -->
-    <script src="userhome/js/custom.js"></script>
+    <script src="{{asset('userhome/js/custom.js')}}"></script>
 </body>
 
 </html>
