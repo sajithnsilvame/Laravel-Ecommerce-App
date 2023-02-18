@@ -45,7 +45,7 @@ Route::get('/delete-category/{id}', [AdminController::class, 'delete_category'])
 Route::get('/show-products', [AdminController::class, 'show_products']);
 
         // add product page
-Route::get('/add-products', [AdminController::class, 'go_add_products']);
+Route::get('/add-products', [AdminController::class, 'go_to_add_products_view']);
 
 Route::post('/add_product', [AdminController::class, 'add_a_product']);
 

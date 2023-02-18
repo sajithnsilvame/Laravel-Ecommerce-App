@@ -32,7 +32,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // Add a category
     public function add_category(Request $request){
         if(Auth::id()){
             $data = new Category();
@@ -46,7 +46,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // Delete a category
     public function delete_category($id){
         if(Auth::id()){
             $data = Category::find($id);
@@ -72,8 +72,8 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-            // products  add view
-    public function go_add_products(){
+        // products  add view
+    public function go_to_add_products_view(){
         if(Auth::id()){
             $category = Category::all();
             return view('admin.pages.addProducts', compact('category'));
@@ -83,7 +83,7 @@ class AdminController extends Controller
         }
         
     }
-            // add a specific product
+        // add a specific product
     public function add_a_product(Request $request){
         if(Auth::id()){
 
@@ -111,7 +111,7 @@ class AdminController extends Controller
         
 
     }
-            // delete a specific product
+        // delete a specific product
     public function delete_product($id){
 
         if(Auth::id()){
@@ -125,12 +125,11 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-            // update a specific product
+        // Go update a specific product
     public function edit_product($id){
 
         if(Auth::id()){
             $category = Category::all();
-
             $product = Product::find($id);
 
             return view('admin.pages.editProduct', compact('product', 'category'));
@@ -139,7 +138,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // Update a product
     public function update_product_confirm(Request $request, $id){
 
         if(Auth::id()){
@@ -201,7 +200,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // Add deliver boy
     public function add_deliver_boy(Request $req){
         if(Auth::id()){
             $deliverBoy = new User();
@@ -227,7 +226,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // show deliver boys
     public function show_deliver_boys(){
         if(Auth::id()){
             $deliver_boys = DB::table('users')->where('usertype', 3)->get();
@@ -237,7 +236,7 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
-
+    // Delete a deliver boy
     public function delete_deliver_boy($id){
         if(Auth::id()){
             $deliverBoy = User::find($id);
@@ -249,7 +248,7 @@ class AdminController extends Controller
         }
     }
 
-    // hand over the order
+    // hand over the order => Deliver section
     public function hand_on_order($id){
         if (Auth::id()) {
             $order = Order::find($id);

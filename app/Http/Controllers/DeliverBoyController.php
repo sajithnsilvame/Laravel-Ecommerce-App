@@ -30,8 +30,6 @@ class DeliverBoyController extends Controller
 
             $orderinfo = Order::where('id', '=', $orderId)->get()->first();
 
-            
-
             if($hands_on_order->payment_status == 'cash on delivery')
             {
 

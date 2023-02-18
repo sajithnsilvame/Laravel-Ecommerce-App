@@ -121,6 +121,7 @@ class HomeController extends Controller{
             $usertype = Auth::User()->usertype;
 
             if ($usertype == '2') {
+
                 $products = Product::all()->count();
                 $orders = Order::all()->count();
                 $customers = DB::table('users')->where('usertype', 0)->count();
@@ -256,7 +257,6 @@ class HomeController extends Controller{
     }
 
     // show products in cart
-
     public function show_products_in_cart(){
 
         if(Auth::id())
@@ -274,7 +274,6 @@ class HomeController extends Controller{
     }
 
     // remove product from cart
-
     public function remove_product_from_cart($id){
         $product_id_from_cart = Cart::find($id);
 
@@ -284,13 +283,13 @@ class HomeController extends Controller{
     }
 
     // cash on deliver
-
     public function cash_on_delivery(){
 
         $user = Auth::User();
         return view('userhome.components.cashOnDelivery', compact('user'));
     }
-
+    
+    // place the order via 'cash on deliver' option
     public function confirm_order(Request $request){
 
         $user = Auth::User();

@@ -56,8 +56,7 @@ class SuperAdminController extends Controller
     public function remove_admin($id){
 
         $admin = User::find($id);
-
-       $admin->delete();
+        $admin->delete();
 
        return redirect()->back()->with('message', 'Admin was deleted successfuly');
        
